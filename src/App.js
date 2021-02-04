@@ -1,25 +1,52 @@
-import logo from './logo.svg';
-import './App.css';
+import React,{Component} from 'react';
+class App extends Component {
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    state = {
+
+        // Initially, no file is selected
+        selectedFile: null
+    };
+
+    // On file select (from the pop up)
+
+    onFileChange = async event => {
+        debugger;
+        // Update the state
+        const selectedFile = await event.target.files[0].text();
+        this.setState({ selectedFile });
+    };
+
+
+    // File content to be displayed after
+    // file upload is complete
+    fileData = () => {
+        if (this.state.selectedFile) {
+
+            return (
+                <div>
+                    {this.state.selectedFile}
+                </div>
+            );
+        } else {
+            return (
+                <div>
+                    <br />
+                    <h4>Choose a json</h4>
+                </div>
+            );
+        }
+    };
+
+    render() {
+        return (
+            <div>
+                <div>
+                    <input type="file" onChange={this.onFileChange} />
+                </div>
+                {this.fileData()}
+            </div>
+        );
+    }
 }
 
 export default App;
