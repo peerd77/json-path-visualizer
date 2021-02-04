@@ -10,22 +10,24 @@ class App extends Component {
     // On file select (from the pop up)
 
     onFileChange = async event => {
-        debugger;
-        // Update the state
-        const selectedFile = await event.target.files[0].text();
+
+        const rawText = await event.target.files[0].text();
+
+        // Prettify json in case the raw file contains unformatted json
+        const selectedFile = JSON.stringify(JSON.parse(rawText), null, 2);
         this.setState({ selectedFile });
     };
 
 
-    // File content to be displayed after
+    // Json content to be displayed after
     // file upload is complete
     fileData = () => {
         if (this.state.selectedFile) {
 
             return (
-                <div>
+                <pre>
                     {this.state.selectedFile}
-                </div>
+                </pre>
             );
         } else {
             return (
