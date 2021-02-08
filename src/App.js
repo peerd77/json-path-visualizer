@@ -1,4 +1,5 @@
 import React,{Component} from 'react';
+import {JSONPath} from 'jsonpath-plus'
 class App extends Component {
 
     state = {
@@ -8,13 +9,15 @@ class App extends Component {
     };
 
     // On file select (from the pop up)
-
+    
     onFileChange = async event => {
 
         const rawText = await event.target.files[0].text();
 
         // Prettify json in case the raw file contains unformatted json
-        const selectedFile = JSON.stringify(JSON.parse(rawText), null, 2);
+        const obj = JSON.parse(rawText);
+        const result = JSONPath({path: '$.store.book[*].author', json: obj})
+        const selectedFile = JSON.stringify(result, null, 2);
         this.setState({ selectedFile });
     };
 
@@ -43,7 +46,7 @@ class App extends Component {
         return (
             <div>
                 <div>
-                    <input type="file" onChange={this.onFileChange} />
+                <input type="file" onChange={this.onFileChange} />
                 </div>
                 {this.fileData()}
             </div>
