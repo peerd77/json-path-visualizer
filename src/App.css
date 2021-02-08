@@ -42,12 +42,12 @@ letter-spacing: 0.1em;
 text-align: center;
 text-transform: uppercase;
 
-transition: 0.3s;
+transition: 0.2s ease-in, 0.5s ease-out;
 
 }
 
 input.visually-hidden + label:hover {
-  filter: brightness(2)
+  filter: brightness(2.5)
 }
 
 
