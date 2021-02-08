@@ -1,5 +1,7 @@
 import React,{Component} from 'react';
 import {JSONPath} from 'jsonpath-plus'
+
+import './App.css'
 class App extends Component {
 
     state = {
@@ -28,26 +30,20 @@ class App extends Component {
         if (this.state.selectedFile) {
 
             return (
-                <pre>
+                <pre className="json-container">
                     {this.state.selectedFile}
                 </pre>
-            );
-        } else {
-            return (
-                <div>
-                    <br />
-                    <h4>Choose a json</h4>
-                </div>
             );
         }
     };
 
     render() {
         return (
-            <div>
+            <div className="flex">
                 <div>
-                <input type="file" onChange={this.onFileChange} />
-                </div>
+                    <input type="file" id="fileElem" className="visually-hidden" onChange={this.onFileChange} />
+                    <label htmlFor="fileElem">Upload a JSON</label>
+                </div> 
                 {this.fileData()}
             </div>
         );
