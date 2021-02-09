@@ -1,7 +1,7 @@
 import React,{Component} from 'react';
 import {JSONPath} from 'jsonpath-plus'
 
-import './App.css'
+import './App.scss'
 class App extends Component {
 
     state = {
