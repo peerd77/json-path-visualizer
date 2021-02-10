@@ -3,6 +3,7 @@ import UploadBtn from './upload-btn/UploadBtn';
 import JsonViewer from "./json-viewer/JsonViewer";
 import './App.scss';
 import {JSONPath} from "jsonpath-plus";
+import JsonPathModalInput from "./json-path-modal-input/JsonPathModalInput";
 
 class App extends Component {
 
@@ -17,6 +18,7 @@ class App extends Component {
             <Fragment>
                 <UploadBtn onJsonLoaded={jsonString => this.handleJsonReady(jsonString)}/>
                 <JsonViewer jsonString={this.state.jsonString}/>
+                <JsonPathModalInput/>
             </Fragment>
 
         );
