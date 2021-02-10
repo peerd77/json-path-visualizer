@@ -2,7 +2,7 @@ import React from "react";
 
 import './JsonViewer.scss';
 
-const jsonViewer = props => {
+const JsonViewer = props => {
     return (
         <pre className="json-container">
             {props.jsonString}
@@ -11,4 +11,4 @@ const jsonViewer = props => {
 
 }
 
-export default jsonViewer;
+export default JsonViewer;

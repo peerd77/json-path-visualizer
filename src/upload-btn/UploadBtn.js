@@ -1,5 +1,4 @@
 import React from "react";
-import { JSONPath } from 'jsonpath-plus'
 
 import './UploadBtn.scss'
 
@@ -9,12 +8,7 @@ const UploadBtn = props => {
 
     const onFileChange = async event => {
         const rawText = await event.target.files[0].text();
-
-        // Prettify json in case the raw file contains unformatted json
-        const obj = JSON.parse(rawText);
-        const result = JSONPath({ path: '$.store.book[*].author', json: obj })
-        const selectedJsonString = JSON.stringify(result, null, 2);
-        props.onJsonLoaded(selectedJsonString)
+        props.onJsonLoaded(rawText)
     };
 
 
