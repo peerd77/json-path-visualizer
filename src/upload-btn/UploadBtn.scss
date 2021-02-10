@@ -1,0 +1,45 @@
+
+.visually-hidden {
+    position: absolute !important;
+    height: 1px;
+    width: 1px;
+    overflow: hidden;
+    clip: rect(1px, 1px, 1px, 1px);
+}
+
+input.visually-hidden + label {
+    --c: goldenrod;
+    
+    position: relative;
+    overflow: hidden;
+    z-index: 1;
+    
+    display: block;
+    
+    border: 0.3em solid var(--c);
+    border-radius: 0.5em;
+    width: 12em;
+    margin: 1em;
+    padding: 1em;
+    
+    color: var(--c);
+    font-size: 16px;
+    font-weight: bold;
+    font-family: sans-serif;
+    letter-spacing: 0.1em;
+    text-align: center;
+    text-transform: uppercase;
+    
+    transition: 0.2s ease-in, 0.5s ease-out;
+    
+    &:hover {
+        filter: brightness(2.5)
+    }
+    
+}
+
+
+
+
+
+
