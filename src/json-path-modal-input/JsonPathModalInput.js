@@ -18,6 +18,7 @@ const JsonPathModalInput = props => {
                 backdrop="static"
                 centered={true}
                 size='lg'
+                contentClassName={'dialog-content'}
             >
                 <Modal.Body className='string-container'>
                     <input
