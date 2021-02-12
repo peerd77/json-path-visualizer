@@ -14,7 +14,7 @@ const App = () => {
         return caps.concat(caps.map(letter => letter.toLowerCase()), '0123456789'.split(''));
     })();
 
-    const JSON_INPUT_CHARS = LETTER_NUMBERS.concat('$@.[]*,:()'.split(''));
+    const JSON_INPUT_CHARS = LETTER_NUMBERS.concat('$@.[]*,:()\'?<>='.split(''));
 
 
 
