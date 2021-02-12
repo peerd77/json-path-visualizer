@@ -44,9 +44,9 @@ const App = () => {
             return;
         }
 
-        //if esc - act like cancel
+        //if esc - act like toggle
         if (keyEvent.keyCode === 27) {
-            setShowJsonPathModal(false);
+            setShowJsonPathModal(prevState => !prevState);
             return;
         }
 
