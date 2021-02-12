@@ -1,5 +1,4 @@
 import React from "react";
-import Button from "react-bootstrap/Button";
 import Modal from "react-bootstrap/Modal";
 
 const JsonPathModalInput = props => {
@@ -7,24 +6,14 @@ const JsonPathModalInput = props => {
     return (
         <>
             <Modal
-                show={props.showModal}
-                onHide={props.onModalApprove}
+                show={props.charBuffer.length > 0}
                 backdrop="static"
-                keyboard={true}
+                centered={true}
+                size='lg'
             >
-                <Modal.Header closeButton>
-                    <Modal.Title>Modal title</Modal.Title>
-                </Modal.Header>
-                <Modal.Body>
-                    I will not close if you click outside me. Don't even try to press
-                    escape key.
+                <Modal.Body className='string-container'>
+                    {props.charBuffer}
                 </Modal.Body>
-                <Modal.Footer>
-                    <Button variant="secondary" onClick={props.onModalApprove}>
-                        Close
-                    </Button>
-                    <Button variant="primary">Understood</Button>
-                </Modal.Footer>
             </Modal>
         </>
     );
