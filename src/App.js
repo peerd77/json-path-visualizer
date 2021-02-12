@@ -20,15 +20,16 @@ const App = () => {
 
     const [originalJsonString, setOriginalJsonString] = useState(null);
     const [viewJson, setViewJson] = useState(null);
-    const [charBuffer, setCharBuffer] = useState([]);
+    const [jsonPathString, setJsonPathString] = useState('');
+    const [showJsonPathModal, setShowJsonPathModal] = useState(false)
 
     const isJsonPathLegalKey = key => {
         return (JSON_INPUT_CHARS.indexOf(key.toLowerCase()) !== -1);
     }
 
-    const handleJsonPathReady = jsonPath => {
+    const handleJsonPathReady = jsonPathString => {
         const obj = JSON.parse(originalJsonString);
-        const result = JSONPath({path: jsonPath, json: obj});
+        const result = JSONPath({path: jsonPathString, json: obj});
         setViewJson(JSON.stringify(result, null, 2));
     }
 
@@ -36,29 +37,22 @@ const App = () => {
 
         if(!originalJsonString) return;
 
-        //if backspace - remove last char
-        if (keyEvent.keyCode === 8) {
-            setCharBuffer(prevState => prevState.slice(0,-1));
-            return;
-        }
-
         //if enter - act like approve
         if (keyEvent.keyCode === 13) {
-            if (charBuffer.length === 0) return;
-            handleJsonPathReady(charBuffer.join(''));
-            setCharBuffer([]);
+            handleJsonPathReady(jsonPathString);
+            setShowJsonPathModal(false);
             return;
         }
 
         //if esc - act like cancel
         if (keyEvent.keyCode === 27) {
-            setCharBuffer([]);
+            setShowJsonPathModal(false);
             return;
         }
 
-        if(!isJsonPathLegalKey(keyEvent.key)) return;
+        if(isJsonPathLegalKey(keyEvent.key))
+            setShowJsonPathModal(true);
 
-        setCharBuffer(prevState => [...prevState, keyEvent.key]);
 
     }
 
@@ -76,11 +70,19 @@ const App = () => {
         setViewJson(jsonString);
     }
 
+    const onJsonPathInputChange = event => {
+        setJsonPathString(event.target.value);
+    };
+
     return (
         <>
             <UploadBtn onJsonLoaded={handleJsonLoaded}/>
             <JsonViewer jsonString={viewJson}/>
-            <JsonPathModalInput charBuffer={charBuffer}/>
+            <JsonPathModalInput
+                value={jsonPathString}
+                show={showJsonPathModal}
+                onChange={onJsonPathInputChange}
+            />
         </>
 
     );

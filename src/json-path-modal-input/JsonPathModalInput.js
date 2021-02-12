@@ -1,18 +1,31 @@
-import React from "react";
 import Modal from "react-bootstrap/Modal";
+import './JsonPathModalInput.scss';
+import {useEffect, useRef} from "react";
 
 const JsonPathModalInput = props => {
+
+    const inputEl = useRef();
+
+    useEffect(() => {
+        if(inputEl.current)
+            inputEl.current.focus();
+    })
 
     return (
         <>
             <Modal
-                show={props.charBuffer.length > 0}
+                show={props.show}
                 backdrop="static"
                 centered={true}
                 size='lg'
             >
                 <Modal.Body className='string-container'>
-                    {props.charBuffer}
+                    <input
+                        type="text"
+                        value={props.value}
+                        onChange={props.onChange}
+                        ref={inputEl}
+                    />
                 </Modal.Body>
             </Modal>
         </>
