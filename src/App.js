@@ -1,9 +1,9 @@
 import React, {useEffect, useState} from 'react';
 import UploadBtn from './upload-btn/UploadBtn';
-import JsonViewer from "./json-viewer/JsonViewer";
 import './App.scss';
 import {JSONPath} from "jsonpath-plus";
 import JsonPathModalInput from "./json-path-modal-input/JsonPathModalInput";
+import ReactJson from "react-json-view";
 
 
 
@@ -30,7 +30,7 @@ const App = () => {
     const handleJsonPathReady = jsonPathString => {
         const obj = JSON.parse(originalJsonString);
         const result = JSONPath({path: jsonPathString, json: obj});
-        setViewJson(JSON.stringify(result, null, 2));
+        setViewJson(result);
     }
 
     const downHandler = (keyEvent) => {
@@ -67,17 +67,21 @@ const App = () => {
 
     const handleJsonLoaded = jsonString => {
         setOriginalJsonString(jsonString);
-        setViewJson(jsonString);
+        setViewJson(JSON.parse(jsonString));
     }
 
     const onJsonPathInputChange = event => {
         setJsonPathString(event.target.value);
     };
 
+    const renderReactJson = () => {
+        return viewJson ? <ReactJson src={viewJson} theme={'monokai'}/> : '';
+    }
+
     return (
         <>
             <UploadBtn onJsonLoaded={handleJsonLoaded}/>
-            <JsonViewer jsonString={viewJson}/>
+            {renderReactJson()}
             <JsonPathModalInput
                 value={jsonPathString}
                 show={showJsonPathModal}
