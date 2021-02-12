@@ -18,17 +18,23 @@ const App = () => {
 
 
 
-    const [jsonString, setJsonString] = useState(null);
-    const [jsonPath, setJsonPath] = useState(null);
+    const [originalJsonString, setOriginalJsonString] = useState(null);
+    const [viewJson, setViewJson] = useState(null);
     const [charBuffer, setCharBuffer] = useState([]);
 
     const isJsonPathLegalKey = key => {
         return (JSON_INPUT_CHARS.indexOf(key.toLowerCase()) !== -1);
     }
 
+    const handleJsonPathReady = jsonPath => {
+        const obj = JSON.parse(originalJsonString);
+        const result = JSONPath({path: jsonPath, json: obj});
+        setViewJson(JSON.stringify(result, null, 2));
+    }
+
     const downHandler = (keyEvent) => {
 
-        if(!jsonString) return;
+        if(!originalJsonString) return;
 
         //if backspace - remove last char
         if (keyEvent.keyCode === 8) {
@@ -38,7 +44,7 @@ const App = () => {
 
         //if enter - act like approve
         if (keyEvent.keyCode === 13) {
-            setJsonPath(charBuffer.join(''));
+            handleJsonPathReady(charBuffer.join(''));
             setCharBuffer([]);
             return;
         }
@@ -62,27 +68,17 @@ const App = () => {
         return () => {
             window.removeEventListener('keydown', downHandler);
         };
-    }, [jsonString, charBuffer]);
+    });
 
-
-    const handleJsonReady = jsonString => {
-        if (!jsonPath) {
-            setJsonString(prevState => {
-                console.log(prevState);
-                return jsonString;
-            });
-            return;
-        }
-        const obj = JSON.parse(jsonString);
-        const result = JSONPath({path: jsonPath, json: obj});
-        setJsonString(JSON.stringify(result, null, 2));
-
+    const handleJsonLoaded = jsonString => {
+        setOriginalJsonString(jsonString);
+        setViewJson(jsonString);
     }
 
     return (
         <>
-            <UploadBtn onJsonLoaded={handleJsonReady}/>
-            <JsonViewer jsonString={jsonString}/>
+            <UploadBtn onJsonLoaded={handleJsonLoaded}/>
+            <JsonViewer jsonString={viewJson}/>
             <JsonPathModalInput charBuffer={charBuffer}/>
         </>
 
