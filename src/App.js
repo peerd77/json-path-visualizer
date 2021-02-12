@@ -44,6 +44,7 @@ const App = () => {
 
         //if enter - act like approve
         if (keyEvent.keyCode === 13) {
+            if (charBuffer.length === 0) return;
             handleJsonPathReady(charBuffer.join(''));
             setCharBuffer([]);
             return;
