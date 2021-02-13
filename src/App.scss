@@ -1,12 +1,17 @@
 @import "~bootstrap/scss/bootstrap";
 
-body {
-  background: rgb(39,40,34);
+$navbar-height: 150px;
+$bgc: rgb(39,40,34);
 
-  .flex {
-    display: flex;
-    align-items: center;
-    flex-direction: column;
+body {
+  background: $bgc;
+  overflow-y: scroll !important;
+
+  .react-json-view-container {
+    position: absolute;
+
+    margin-top: $navbar-height;
+    margin-left: 15px;
   }
 }
 

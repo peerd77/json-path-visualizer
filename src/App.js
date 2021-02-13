@@ -6,7 +6,6 @@ import JsonPathModalInput from "./json-path-modal-input/JsonPathModalInput";
 import ReactJson from "react-json-view";
 
 
-
 const App = () => {
 
     const LETTER_NUMBERS = (() => {
@@ -15,7 +14,6 @@ const App = () => {
     })();
 
     const JSON_INPUT_CHARS = LETTER_NUMBERS.concat('$@.[]*,:()\'?<>='.split(''));
-
 
 
     const [originalJsonString, setOriginalJsonString] = useState(null);
@@ -35,7 +33,7 @@ const App = () => {
 
     const downHandler = (keyEvent) => {
 
-        if(!originalJsonString) return;
+        if (!originalJsonString) return;
 
         //if enter - act like approve
         if (keyEvent.keyCode === 13) {
@@ -50,7 +48,7 @@ const App = () => {
             return;
         }
 
-        if(isJsonPathLegalKey(keyEvent.key))
+        if (isJsonPathLegalKey(keyEvent.key))
             setShowJsonPathModal(true);
 
 
@@ -81,7 +79,9 @@ const App = () => {
     return (
         <>
             <UploadBtn onJsonLoaded={handleJsonLoaded}/>
-            {renderReactJson()}
+            <div className="react-json-view-container">
+                {renderReactJson()}
+            </div>
             <JsonPathModalInput
                 value={jsonPathString}
                 show={showJsonPathModal}
@@ -91,8 +91,6 @@ const App = () => {
 
     );
 }
-
-
 
 
 export default App;
