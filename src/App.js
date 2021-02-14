@@ -4,6 +4,7 @@ import './App.scss';
 import {JSONPath} from "jsonpath-plus";
 import JsonPathModalInput from "./json-path-modal-input/JsonPathModalInput";
 import ReactJson from "react-json-view";
+import {Spinner} from "react-bootstrap";
 
 
 const App = () => {
@@ -20,6 +21,7 @@ const App = () => {
     const [viewJson, setViewJson] = useState(null);
     const [jsonPathString, setJsonPathString] = useState('');
     const [showJsonPathModal, setShowJsonPathModal] = useState(false)
+    const [showSpinner, setShowSpinner] = useState(false);
 
     const isJsonPathLegalKey = key => {
         return (JSON_INPUT_CHARS.indexOf(key.toLowerCase()) !== -1);
@@ -76,11 +78,21 @@ const App = () => {
         return viewJson ? <ReactJson src={viewJson} theme={'monokai'}/> : '';
     }
 
+    const handleFileReadStatusChange = readStatus => {
+        setShowSpinner(readStatus);
+    };
+
+    const renderSpinner = () => showSpinner ? <Spinner animation="grow" variant="light"/> : '';
+
     return (
         <>
-            <UploadBtn onJsonLoaded={handleJsonLoaded}/>
+            <UploadBtn
+                onJsonLoaded={handleJsonLoaded}
+                onFileReadStatusChange={handleFileReadStatusChange}
+            />
             <div className="react-json-view-container">
                 {renderReactJson()}
+                {renderSpinner()}
             </div>
             <JsonPathModalInput
                 value={jsonPathString}

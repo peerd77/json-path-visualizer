@@ -7,10 +7,12 @@ const UploadBtn = props => {
     // On file select (from the pop up)
 
     const onFileChange = async event => {
+        props.onFileReadStatusChange(true)
         if (event.target.files[0]) {
             const rawText = await event.target.files[0].text();
             props.onJsonLoaded(rawText)
         }
+        props.onFileReadStatusChange(false);
 
     };
 
